@@ -5,6 +5,7 @@ import 'package:todo_clone/controller/tasks_controller.dart';
 import 'package:todo_clone/core/theme/app_colors.dart';
 import 'package:todo_clone/core/theme/app_text_styles.dart';
 import 'package:todo_clone/data/local/floor/entity/task.dart';
+import 'package:todo_clone/ui/tasks/widgets/search_app_bar_widget.dart';
 import 'package:todo_clone/ui/tasks/widgets/task_item_widget.dart';
 
 class TasksPage extends GetView<TasksController> {
@@ -13,52 +14,71 @@ class TasksPage extends GetView<TasksController> {
     return KeyboardDismisser(
       child: SafeArea(
         child: GetBuilder<TasksController>(
-          builder: (homeController) => StreamBuilder<List<Task>>(
-            stream: controller.getTasks(),
-            builder: (_, snapshot) {
-              return Scaffold(
-                appBar: AppBar(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(color: clrAsset),
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(0),
-                      topLeft: Radius.circular(0),
-                      bottomRight: Radius.circular(12),
-                      bottomLeft: Radius.circular(12),
+          builder: (homeController) => Scaffold(
+            appBar: !homeController.isSearching
+                ? AppBar(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: clrAsset),
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(0),
+                        topLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(12),
+                        bottomLeft: Radius.circular(12),
+                      ),
                     ),
+                    title: Text(
+                      'Todo clone',
+                      style: styActionAppbar,
+                    ),
+                    centerTitle: true,
+                    actions: [
+                      IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: () async {
+                          await homeController.setIsSearching(true);
+                        },
+                      ),
+                    ],
+                  )
+                : SearchAppBarWidget(
+                    onChanged: (value) {
+                      homeController.getTasks();
+                    },
+                    onLeadingTap: () async {
+                      await homeController.setIsSearching(false);
+                      homeController.searchController!.clear();
+                      homeController.getTasks();
+                    },
+                    onClearTap: () {
+                      homeController.searchController!.clear();
+                      homeController.getTasks();
+                    },
+                    searchController: homeController.searchController,
                   ),
-                  title: Text(
-                    'Todo clone',
-                    style: styActionAppbar,
-                  ),
-                  centerTitle: true,
-                ),
-                body: Stack(
-                  children: [
-                    ListView.builder(
-                      itemCount: snapshot.hasData ? snapshot.data!.length : 0,
-                      physics: BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        if (!snapshot.hasData) return Container();
-                        var task = snapshot.data![index];
-                        return TaskItem(
-                          task: task,
-                          onCheck: (value) {
-                            homeController.updateTask(task, value);
-                          },
-                        );
+            body: Stack(
+              children: [
+                ListView.builder(
+                  itemCount: homeController.tasks.length,
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    if (homeController.tasks.isEmpty) return Container();
+                    var task = homeController.tasks[index];
+                    return TaskItem(
+                      task: task,
+                      onCheck: (value) {
+                        homeController.updateTask(task, value);
                       },
-                    ),
-                  ],
+                    );
+                  },
                 ),
-                floatingActionButton: GetBuilder<TasksController>(
-                  builder: (homeController) => FloatingActionButton(
-                    child: Icon(Icons.add),
-                    onPressed: () async {},
-                  ),
-                ),
-              );
-            },
+              ],
+            ),
+            floatingActionButton: GetBuilder<TasksController>(
+              builder: (homeController) => FloatingActionButton(
+                child: Icon(Icons.add),
+                onPressed: () async {},
+              ),
+            ),
           ),
         ),
       ),

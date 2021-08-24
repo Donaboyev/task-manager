@@ -16,8 +16,8 @@ class LocalSource {
       return LocalSource._();
   }
 
-  Stream<List<Task>> getTasks() {
-    return _taskDao.getTasks();
+  Future<List<Task>> getTasks(String? searchQuery) {
+    return _taskDao.getTasks(searchQuery!);
   }
 
   Future<void> insertTask(Task task) async {

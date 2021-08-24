@@ -97,7 +97,7 @@ class _$AppDatabase extends AppDatabase {
 
 class _$TasksDao extends TasksDao {
   _$TasksDao(this.database, this.changeListener)
-      : _queryAdapter = QueryAdapter(database, changeListener),
+      : _queryAdapter = QueryAdapter(database),
         _taskInsertionAdapter = InsertionAdapter(
             database,
             'Task',
@@ -109,8 +109,7 @@ class _$TasksDao extends TasksDao {
                   'completed':
                       item.completed == null ? null : (item.completed! ? 1 : 0),
                   'created': item.created
-                },
-            changeListener),
+                }),
         _taskUpdateAdapter = UpdateAdapter(
             database,
             'Task',
@@ -123,8 +122,7 @@ class _$TasksDao extends TasksDao {
                   'completed':
                       item.completed == null ? null : (item.completed! ? 1 : 0),
                   'created': item.created
-                },
-            changeListener),
+                }),
         _taskDeletionAdapter = DeletionAdapter(
             database,
             'Task',
@@ -137,8 +135,7 @@ class _$TasksDao extends TasksDao {
                   'completed':
                       item.completed == null ? null : (item.completed! ? 1 : 0),
                   'created': item.created
-                },
-            changeListener);
+                });
 
   final sqflite.DatabaseExecutor database;
 
@@ -153,8 +150,9 @@ class _$TasksDao extends TasksDao {
   final DeletionAdapter<Task> _taskDeletionAdapter;
 
   @override
-  Stream<List<Task>> getTasks() {
-    return _queryAdapter.queryListStream('SELECT * FROM Task',
+  Future<List<Task>> getTasks(String searchQuery) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM Task WHERE name LIKE ?1 ORDER BY important DESC',
         mapper: (Map<String, Object?> row) => Task(
             id: row['id'] as int?,
             name: row['name'] as String?,
@@ -165,8 +163,7 @@ class _$TasksDao extends TasksDao {
                 ? null
                 : (row['completed'] as int) != 0,
             created: row['created'] as int?),
-        queryableName: 'Task',
-        isView: false);
+        arguments: [searchQuery]);
   }
 
   @override

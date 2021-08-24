@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_clone/data/local/floor/entity/task.dart';
 import 'package:todo_clone/data/repository/tasks_repository.dart';
@@ -7,13 +8,32 @@ class TasksController extends GetxController {
 
   TasksController(this._repository);
 
+  RxBool _isSearching = false.obs;
+  TextEditingController? searchController;
+  List<Task>? _tasks;
+
   @override
   Future<void> onInit() async {
+    searchController = TextEditingController();
+    getTasks();
     super.onInit();
   }
 
-  Stream<List<Task>> getTasks() {
-    return _repository!.getTasks();
+  @override
+  Future<void> dispose() async {
+    searchController!.dispose();
+    super.dispose();
+  }
+
+  Future<void> setIsSearching(bool value) async {
+    _isSearching.value = value;
+    update();
+  }
+
+  Future<void> getTasks() async {
+    _tasks = await _repository!
+        .getTasks('%${searchController!.text.toString().trim()}%');
+    update();
   }
 
   Future<void> insertTask(Task task) async {
@@ -38,4 +58,8 @@ class TasksController extends GetxController {
     await _repository!.updateTask(newTask);
     update();
   }
+
+  bool get isSearching => _isSearching.value;
+
+  List<Task> get tasks => _tasks!;
 }

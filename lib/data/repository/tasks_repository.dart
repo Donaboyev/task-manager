@@ -4,8 +4,8 @@ import 'package:todo_clone/data/local/local_source.dart';
 class TasksRepository {
   final LocalSource? _localSource = LocalSource.getInstance();
 
-  Stream<List<Task>> getTasks() {
-    return _localSource!.getTasks();
+  Future<List<Task>> getTasks(String? searchQuery) {
+    return _localSource!.getTasks(searchQuery);
   }
 
   Future<void> insertTask(Task task) async {
