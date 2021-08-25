@@ -9,3 +9,8 @@ enum Version {
   lazy,
   wait,
 }
+
+enum SortOrder {
+  BY_NAME,
+  BY_DATE,
+}

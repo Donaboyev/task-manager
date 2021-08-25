@@ -150,20 +150,21 @@ class _$TasksDao extends TasksDao {
   final DeletionAdapter<Task> _taskDeletionAdapter;
 
   @override
-  Future<List<Task>> getTasks(String searchQuery) async {
+  Future<List<Task>> getTasksSortedByDateCreated(
+      String query, bool hideCompleted) async {
     return _queryAdapter.queryList(
-        'SELECT * FROM Task WHERE name LIKE ?1 ORDER BY important DESC',
-        mapper: (Map<String, Object?> row) => Task(
-            id: row['id'] as int?,
-            name: row['name'] as String?,
-            important: row['important'] == null
-                ? null
-                : (row['important'] as int) != 0,
-            completed: row['completed'] == null
-                ? null
-                : (row['completed'] as int) != 0,
-            created: row['created'] as int?),
-        arguments: [searchQuery]);
+        'SELECT * FROM Task WHERE (completed != ?2 OR completed = 0) AND name LIKE ?1 ORDER BY important DESC, created',
+        mapper: (Map<String, Object?> row) => Task(id: row['id'] as int?, name: row['name'] as String?, important: row['important'] == null ? null : (row['important'] as int) != 0, completed: row['completed'] == null ? null : (row['completed'] as int) != 0, created: row['created'] as int?),
+        arguments: [query, hideCompleted ? 1 : 0]);
+  }
+
+  @override
+  Future<List<Task>> getTasksSortedByName(
+      String query, bool hideCompleted) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM Task WHERE (completed != ?2 OR completed = 0) AND name LIKE ?1 ORDER BY important DESC, name',
+        mapper: (Map<String, Object?> row) => Task(id: row['id'] as int?, name: row['name'] as String?, important: row['important'] == null ? null : (row['important'] as int) != 0, completed: row['completed'] == null ? null : (row['completed'] as int) != 0, created: row['created'] as int?),
+        arguments: [query, hideCompleted ? 1 : 0]);
   }
 
   @override

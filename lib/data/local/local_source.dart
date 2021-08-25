@@ -1,3 +1,4 @@
+import 'package:todo_clone/core/constants/app_constants.dart';
 import 'package:todo_clone/data/local/floor/app_database.dart';
 import 'package:todo_clone/data/local/floor/dao/tasks_dao.dart';
 import 'package:todo_clone/data/local/floor/entity/task.dart';
@@ -16,8 +17,9 @@ class LocalSource {
       return LocalSource._();
   }
 
-  Future<List<Task>> getTasks(String? searchQuery) {
-    return _taskDao.getTasks(searchQuery!);
+  Future<List<Task>> getTasks(
+      String? searchQuery, SortOrder sortOrder, bool hideCompleted) {
+    return _taskDao.getTasks(searchQuery!, sortOrder, hideCompleted);
   }
 
   Future<void> insertTask(Task task) async {
