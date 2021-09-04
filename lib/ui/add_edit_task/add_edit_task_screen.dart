@@ -3,18 +3,33 @@ import 'package:get/get.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:todo_clone/controller/add_edit_task_controller.dart';
 import 'package:todo_clone/controller/tasks_controller.dart';
+import 'package:todo_clone/core/theme/app_colors.dart';
+import 'package:todo_clone/core/theme/app_text_styles.dart';
 
 class AddEditTaskPage extends GetView<AddEditTaskController> {
-  const AddEditTaskPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return KeyboardDismisser(
       child: SafeArea(
         child: GetBuilder<AddEditTaskController>(
           builder: (addEditController) => Scaffold(
+            backgroundColor: clrWhite,
             appBar: AppBar(
-              title: Text('New task'),
+              backgroundColor: clrWhite,
+              elevation: 0,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: clrBreaker,
+                ),
+                onPressed: () {
+                  Get.back();
+                },
+              ),
+              title: Text(
+                'New task',
+                style: styActionAppbar,
+              ),
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -27,9 +42,13 @@ class AddEditTaskPage extends GetView<AddEditTaskController> {
                   ),
                   Row(
                     children: [
-                      Checkbox(
-                        value: false,
-                        onChanged: (value) {},
+                      Obx(
+                        () => Checkbox(
+                          value: addEditController.isImportant,
+                          onChanged: (value) {
+                            addEditController.setIsImportant(value ?? false);
+                          },
+                        ),
                       ),
                       Text('Important task'),
                     ],

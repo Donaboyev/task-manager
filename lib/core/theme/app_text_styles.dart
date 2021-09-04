@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:todo_clone/core/theme/app_colors.dart';
 
 const styActionAppbar = TextStyle(
-  color: clrWhite,
-  fontSize: 17,
-  fontWeight: FontWeight.w700,
+  color: clrAsset,
+  fontSize: 22,
+  fontWeight: FontWeight.w600,
 );
 
 const styTabCategoryItem = TextStyle(
@@ -14,14 +14,27 @@ const styTabCategoryItem = TextStyle(
 );
 
 const styCompletedTaskTitle = TextStyle(
-  color: clrBlack,
+  color: clrGrayBlue,
   fontSize: 15,
   fontWeight: FontWeight.w600,
   decoration: TextDecoration.lineThrough,
 );
 
-const styUnCompletedTaskTitle = TextStyle(
-  color: clrBlack,
+const styCompletedImportantTaskTitle = TextStyle(
+  color: clrRed,
+  fontSize: 15,
+  fontWeight: FontWeight.w600,
+  decoration: TextDecoration.lineThrough,
+);
+
+const styImportantTaskTitle = TextStyle(
+  color: clrRed,
+  fontSize: 15,
+  fontWeight: FontWeight.w600,
+);
+
+const styTaskTitle = TextStyle(
+  color: clrBreaker,
   fontSize: 15,
   fontWeight: FontWeight.w600,
 );

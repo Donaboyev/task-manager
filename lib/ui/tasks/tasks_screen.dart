@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:todo_clone/controller/tasks_controller.dart';
 import 'package:todo_clone/core/constants/app_constants.dart';
+import 'package:todo_clone/core/theme/app_colors.dart';
 import 'package:todo_clone/core/theme/app_text_styles.dart';
 import 'package:todo_clone/routes/app_routes.dart';
 import 'package:todo_clone/ui/tasks/widgets/attention_dialog.dart';
@@ -16,21 +17,29 @@ class TasksPage extends GetView<TasksController> {
       child: SafeArea(
         child: GetBuilder<TasksController>(
           builder: (tasksController) => Scaffold(
+            backgroundColor: clrWhite,
             appBar: !tasksController.isSearching
                 ? AppBar(
+                    backgroundColor: clrWhite,
+                    elevation: 0,
                     title: Text(
                       'Tasks',
                       style: styActionAppbar,
                     ),
                     actions: [
                       IconButton(
-                        icon: Icon(Icons.search),
-                        onPressed: () {
-                          tasksController.setIsSearching(true);
-                        },
+                        icon: Icon(
+                          Icons.search,
+                          color: clrAsset,
+                        ),
+                        onPressed: () => tasksController.setIsSearching(true),
                       ),
                       PopupMenuButton<String>(
-                        icon: Icon(Icons.sort),
+                        tooltip: 'Sorting types',
+                        icon: Icon(
+                          Icons.sort,
+                          color: clrAsset,
+                        ),
                         itemBuilder: (context) {
                           return {'Sort by name', 'Sort by date created'}.map(
                             (choice) {
@@ -53,7 +62,10 @@ class TasksPage extends GetView<TasksController> {
                         },
                       ),
                       PopupMenuButton<String>(
-                        icon: Icon(Icons.more_vert),
+                        icon: Icon(
+                          Icons.more_vert,
+                          color: clrAsset,
+                        ),
                         itemBuilder: (_) => <PopupMenuItem<String>>[
                           PopupMenuItem<String>(
                             child: Row(
@@ -138,6 +150,9 @@ class TasksPage extends GetView<TasksController> {
                 onPressed: () async {
                   Get.toNamed(AppRoutes.ADD_EDIT);
                 },
+                backgroundColor: clrBreaker,
+                elevation: 0,
+                highlightElevation: 0,
               ),
             ),
           ),
