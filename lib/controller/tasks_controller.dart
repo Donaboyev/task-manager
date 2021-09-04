@@ -12,15 +12,15 @@ class TasksController extends GetxController {
   TasksController(this._repository);
 
   RxBool _isSearching = false.obs;
+  RxBool _clearButtonEnabled = false.obs;
   TextEditingController? searchController;
   List<Task>? _tasks;
   RxBool _hideCompleted = false.obs;
-  SortOrder? _sortOrder;
 
   @override
   Future<void> onInit() async {
     searchController = TextEditingController();
-    _sortOrder = SortOrder.BY_DATE;
+    _hideCompleted.value = _repository!.getHideCompleted();
     getTasks();
     super.onInit();
   }
@@ -36,13 +36,19 @@ class TasksController extends GetxController {
     update();
   }
 
+  Future<void> isClearButtonEnabled(bool value) async {
+    _clearButtonEnabled.value = value;
+    update();
+  }
+
   Future<void> setSortOrder(SortOrder order) async {
-    if (order == _sortOrder) return;
-    _sortOrder = order;
+    if (order == _repository!.getSortOrder()) return;
+    _repository!.setSortOrder(order);
     getTasks();
   }
 
   Future<void> setHideCompleted() async {
+    _repository!.setHideCompleted(!_hideCompleted.value);
     _hideCompleted.value = !_hideCompleted.value;
     getTasks();
   }
@@ -50,8 +56,8 @@ class TasksController extends GetxController {
   Future<void> getTasks() async {
     _tasks = await _repository!.getTasks(
       '%${searchController!.text.toString().trim()}%',
-      _sortOrder!,
-      _hideCompleted.value,
+      _repository!.getSortOrder(),
+      _repository!.getHideCompleted(),
     );
     update();
   }
@@ -79,7 +85,14 @@ class TasksController extends GetxController {
     update();
   }
 
+  Future<void> deleteCompletedTasks() async {
+    await _repository!.deleteCompletedTasks();
+    getTasks();
+  }
+
   bool get isSearching => _isSearching.value;
+
+  bool get clearButtonEnabled => _clearButtonEnabled.value;
 
   RxBool get hideCompleted => _hideCompleted;
 

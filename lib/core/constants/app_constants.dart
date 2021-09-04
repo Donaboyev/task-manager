@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class AppConstants {
   static const DATABASE_VERSION = 1;
   static const String version = String.fromEnvironment('VERSION');
@@ -13,4 +15,8 @@ enum Version {
 enum SortOrder {
   BY_NAME,
   BY_DATE,
+}
+
+extension SortOrderExtension on SortOrder {
+  String get value => describeEnum(this);
 }

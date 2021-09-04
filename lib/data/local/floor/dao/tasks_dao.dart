@@ -32,4 +32,7 @@ abstract class TasksDao {
 
   @delete
   Future<void> deleteTask(Task task);
+
+  @Query("DELETE FROM Task WHERE completed = 1")
+  Future<void> deleteCompletedTasks();
 }

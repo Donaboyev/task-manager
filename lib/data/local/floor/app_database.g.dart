@@ -168,6 +168,11 @@ class _$TasksDao extends TasksDao {
   }
 
   @override
+  Future<void> deleteCompletedTasks() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM Task WHERE completed = 1');
+  }
+
+  @override
   Future<void> insertTask(Task task) async {
     await _taskInsertionAdapter.insert(task, OnConflictStrategy.replace);
   }

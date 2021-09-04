@@ -5,6 +5,7 @@ import 'package:todo_clone/controller/tasks_controller.dart';
 import 'package:todo_clone/core/constants/app_constants.dart';
 import 'package:todo_clone/core/theme/app_text_styles.dart';
 import 'package:todo_clone/routes/app_routes.dart';
+import 'package:todo_clone/ui/tasks/widgets/attention_dialog.dart';
 import 'package:todo_clone/ui/tasks/widgets/search_app_bar_widget.dart';
 import 'package:todo_clone/ui/tasks/widgets/task_item_widget.dart';
 
@@ -14,19 +15,18 @@ class TasksPage extends GetView<TasksController> {
     return KeyboardDismisser(
       child: SafeArea(
         child: GetBuilder<TasksController>(
-          builder: (homeController) => Scaffold(
-            appBar: !homeController.isSearching
+          builder: (tasksController) => Scaffold(
+            appBar: !tasksController.isSearching
                 ? AppBar(
                     title: Text(
-                      'Todo clone',
+                      'Tasks',
                       style: styActionAppbar,
                     ),
-                    centerTitle: true,
                     actions: [
                       IconButton(
                         icon: Icon(Icons.search),
                         onPressed: () {
-                          homeController.setIsSearching(true);
+                          tasksController.setIsSearching(true);
                         },
                       ),
                       PopupMenuButton<String>(
@@ -44,10 +44,10 @@ class TasksPage extends GetView<TasksController> {
                         onSelected: (value) {
                           switch (value) {
                             case 'Sort by name':
-                              homeController.setSortOrder(SortOrder.BY_NAME);
+                              tasksController.setSortOrder(SortOrder.BY_NAME);
                               break;
                             case 'Sort by date created':
-                              homeController.setSortOrder(SortOrder.BY_DATE);
+                              tasksController.setSortOrder(SortOrder.BY_DATE);
                               break;
                           }
                         },
@@ -60,9 +60,9 @@ class TasksPage extends GetView<TasksController> {
                               children: [
                                 Text('Hide completed'),
                                 Checkbox(
-                                  value: homeController.hideCompleted.value,
+                                  value: tasksController.hideCompleted.value,
                                   onChanged: (value) {
-                                    homeController.setHideCompleted();
+                                    tasksController.setHideCompleted();
                                     Get.back();
                                   },
                                 ),
@@ -78,10 +78,18 @@ class TasksPage extends GetView<TasksController> {
                         onSelected: (value) {
                           switch (value) {
                             case 'hide':
-                              homeController.setHideCompleted();
+                              tasksController.setHideCompleted();
                               break;
                             case 'delete all':
-                              homeController.setSortOrder(SortOrder.BY_DATE);
+                              showDialog(
+                                context: context,
+                                builder: (context) => AttentionDialog(
+                                  onYesTap: () {
+                                    tasksController.deleteCompletedTasks();
+                                    Get.back();
+                                  },
+                                ),
+                              );
                               break;
                           }
                         },
@@ -90,29 +98,36 @@ class TasksPage extends GetView<TasksController> {
                   )
                 : SearchAppBarWidget(
                     onChanged: (value) {
-                      homeController.getTasks();
+                      tasksController.getTasks();
+                      tasksController.isClearButtonEnabled(
+                        tasksController.searchController!.text
+                            .trim()
+                            .isNotEmpty,
+                      );
                     },
                     onLeadingTap: () async {
-                      await homeController.setIsSearching(false);
-                      homeController.searchController!.clear();
-                      homeController.getTasks();
+                      await tasksController.setIsSearching(false);
+                      tasksController.searchController!.clear();
+                      tasksController.getTasks();
                     },
                     onClearTap: () {
-                      homeController.searchController!.clear();
-                      homeController.getTasks();
+                      tasksController.searchController!.clear();
+                      tasksController.getTasks();
                     },
-                    searchController: homeController.searchController,
+                    searchController: tasksController.searchController,
+                    clearButtonEnabled: tasksController.isSearching,
                   ),
             body: ListView.builder(
-              itemCount: homeController.tasks.length,
+              itemCount: tasksController.tasks.length,
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {
-                if (homeController.tasks.isEmpty) return Container();
-                var task = homeController.tasks[index];
+                if (tasksController.tasks.isEmpty) return Container();
+                var task = tasksController.tasks[index];
                 return TaskItem(
                   task: task,
                   onCheck: (value) {
-                    homeController.updateTask(task, value);
+                    tasksController.updateTask(task, value);
+                    tasksController.getTasks();
                   },
                 );
               },

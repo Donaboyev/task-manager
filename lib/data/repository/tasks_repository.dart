@@ -14,7 +14,23 @@ class TasksRepository {
     await _localSource!.insertTask(task);
   }
 
+  Future<void> deleteCompletedTasks() async {
+    await _localSource!.deleteAllCompletedTasks();
+  }
+
   Future<void> updateTask(Task task) async {
     await _localSource!.updateTask(task);
   }
+
+  Future<void> setSortOrder(SortOrder sortOrder) async {
+    await _localSource!.setSortOrder(sortOrder);
+  }
+
+  Future<void> setHideCompleted(bool value) async {
+    await _localSource!.setHideCompleted(value);
+  }
+
+  SortOrder getSortOrder() => _localSource!.getSortOrder();
+
+  bool getHideCompleted() => _localSource!.getHideCompleted();
 }

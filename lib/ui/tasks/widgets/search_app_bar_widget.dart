@@ -9,6 +9,7 @@ class SearchAppBarWidget extends GetView<TasksController>
   final TextEditingController? searchController;
   final VoidCallback? onLeadingTap;
   final VoidCallback? onClearTap;
+  final bool? clearButtonEnabled;
 
   const SearchAppBarWidget({
     Key? key,
@@ -16,6 +17,7 @@ class SearchAppBarWidget extends GetView<TasksController>
     this.searchController,
     this.onLeadingTap,
     this.onClearTap,
+    this.clearButtonEnabled,
   }) : super(key: key);
 
   @override
@@ -30,9 +32,10 @@ class SearchAppBarWidget extends GetView<TasksController>
             color: clrWhite,
           ),
           autofocus: true,
+          cursorColor: clrWhite,
           decoration: new InputDecoration(
             hintText: "Search...",
-            hintStyle: new TextStyle(color: clrWhite),
+            hintStyle: new TextStyle(color: clrGray),
           ),
         ),
         leading: IconButton(
@@ -40,11 +43,16 @@ class SearchAppBarWidget extends GetView<TasksController>
           onPressed: onLeadingTap,
         ),
         actions: [
-          TextButton(
-            onPressed: onClearTap,
-            child: Text(
-              'Clear',
-              style: TextStyle(color: clrWhite),
+          Obx(
+            () => Visibility(
+              visible: controller.clearButtonEnabled,
+              child: TextButton(
+                onPressed: onClearTap,
+                child: Text(
+                  'Clear',
+                  style: TextStyle(color: clrWhite),
+                ),
+              ),
             ),
           ),
         ],
