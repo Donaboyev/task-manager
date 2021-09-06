@@ -27,11 +27,15 @@ class TaskItem extends GetView<TasksController> {
       child: GetBuilder<TasksController>(
         builder: (tasksController) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 4,
+            ),
             child: Container(
               decoration: BoxDecoration(
-                border:
-                    Border.all(color: task!.important! ? clrSindre : clrGrayer),
+                border: Border.all(
+                  color: task!.important! ? clrSindre : clrGrayer,
+                ),
                 borderRadius: BorderRadius.circular(12),
                 color: task!.important! ? clrRedHint : clrBreakerHint,
               ),
@@ -52,7 +56,7 @@ class TaskItem extends GetView<TasksController> {
                               child: Row(
                                 children: [
                                   Checkbox(
-                                    shape: CircleBorder(),
+                                    shape: const CircleBorder(),
                                     value: task!.completed,
                                     onChanged: (value) => onCheck!(value!),
                                     activeColor:
@@ -85,9 +89,9 @@ class TaskItem extends GetView<TasksController> {
                               ),
                             ),
                             task!.important!
-                                ? Padding(
+                                ? const Padding(
                                     padding: const EdgeInsets.only(right: 8.0),
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.notification_important_sharp,
                                       color: clrRed,
                                     ),

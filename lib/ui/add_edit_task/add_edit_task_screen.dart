@@ -25,13 +25,11 @@ class AddEditTaskPage extends GetView<AddEditTaskController> {
               backgroundColor: clrWhite,
               elevation: 0,
               leading: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back_ios,
-                  color: clrAsset,
+                  color: clrAccent,
                 ),
-                onPressed: () {
-                  Get.back();
-                },
+                onPressed: () => Get.back(),
               ),
               title: Text(
                 task != null ? 'Update task' : 'New task',
@@ -42,7 +40,7 @@ class AddEditTaskPage extends GetView<AddEditTaskController> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               child: ListView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 children: [
                   Obx(
                     () => CustomTextField(
@@ -66,20 +64,15 @@ class AddEditTaskPage extends GetView<AddEditTaskController> {
                     children: [
                       Text(
                         'Important task: ',
-                        style: TextStyle(
-                          color: clrAsset,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: styImportantNotes,
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Obx(
                         () => Checkbox(
                           value: addEditController.isImportant,
-                          onChanged: (value) {
-                            addEditController.setIsImportant(value ?? false);
-                          },
-                          activeColor: clrAsset,
+                          onChanged: (value) =>
+                              addEditController.setIsImportant(value ?? false),
+                          activeColor: clrAccent,
                         ),
                       ),
                     ],
@@ -87,11 +80,7 @@ class AddEditTaskPage extends GetView<AddEditTaskController> {
                   Visibility(
                     child: Text(
                       'Created: ${BaseFunctions.getCreatedDate(task?.created ?? 0)}',
-                      style: TextStyle(
-                        color: clrAsset,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: styImportantNotes,
                     ),
                     visible: task != null,
                   ),
@@ -100,10 +89,10 @@ class AddEditTaskPage extends GetView<AddEditTaskController> {
             ),
             floatingActionButton: GetBuilder<TasksController>(
               builder: (tasksController) => FloatingActionButton(
-                backgroundColor: clrAsset,
+                backgroundColor: clrAccent,
                 elevation: 0,
                 highlightElevation: 0,
-                child: Icon(Icons.check),
+                child: const Icon(Icons.check),
                 onPressed: () {
                   if (addEditController.taskInputController!.text
                       .trim()

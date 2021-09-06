@@ -22,31 +22,34 @@ class TasksPage extends GetView<TasksController> {
                 ? AppBar(
                     backgroundColor: clrWhite,
                     elevation: 0,
-                    title: Text(
+                    title: const Text(
                       'Tasks',
                       style: styActionAppbar,
                     ),
                     actions: [
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.search,
-                          color: clrAsset,
+                          color: clrAccent,
                         ),
                         onPressed: () => tasksController.setIsSearching(true),
                       ),
                       PopupMenuButton<String>(
                         tooltip: 'Sorting types',
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.sort,
-                          color: clrAsset,
+                          color: clrAccent,
                         ),
                         itemBuilder: (context) {
-                          return {'Sort by name', 'Sort by date created'}.map(
+                          return {
+                            AppConstants.SORT_BY_NAME_TAG,
+                            AppConstants.SORT_BY_DATE_TAG
+                          }.map(
                             (choice) {
                               return PopupMenuItem<String>(
                                 child: Text(
                                   choice,
-                                  style: TextStyle(color: clrAsset),
+                                  style: TextStyle(color: clrAccent),
                                 ),
                                 value: choice,
                               );
@@ -55,27 +58,27 @@ class TasksPage extends GetView<TasksController> {
                         },
                         onSelected: (value) {
                           switch (value) {
-                            case 'Sort by name':
+                            case AppConstants.SORT_BY_NAME_TAG:
                               tasksController.setSortOrder(SortOrder.BY_NAME);
                               break;
-                            case 'Sort by date created':
+                            case AppConstants.SORT_BY_DATE_TAG:
                               tasksController.setSortOrder(SortOrder.BY_DATE);
                               break;
                           }
                         },
                       ),
                       PopupMenuButton<String>(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.more_vert,
-                          color: clrAsset,
+                          color: clrAccent,
                         ),
                         itemBuilder: (_) => <PopupMenuItem<String>>[
                           PopupMenuItem<String>(
                             child: Row(
                               children: [
-                                Text(
+                                const Text(
                                   'Hide completed',
-                                  style: TextStyle(color: clrAsset),
+                                  style: stySearchText,
                                 ),
                                 Checkbox(
                                   value: tasksController.hideCompleted.value,
@@ -86,22 +89,22 @@ class TasksPage extends GetView<TasksController> {
                                 ),
                               ],
                             ),
-                            value: 'hide',
+                            value: AppConstants.HIDE_COMPLETED_TAG,
                           ),
                           PopupMenuItem(
-                            child: Text(
+                            child: const Text(
                               'Delete all completed',
-                              style: TextStyle(color: clrAsset),
+                              style: stySearchText,
                             ),
-                            value: 'delete all',
+                            value: AppConstants.DELETE_ALL_COMPLETED_TAG,
                           ),
                         ],
                         onSelected: (value) {
                           switch (value) {
-                            case 'hide':
+                            case AppConstants.HIDE_COMPLETED_TAG:
                               tasksController.setHideCompleted();
                               break;
-                            case 'delete all':
+                            case AppConstants.DELETE_ALL_COMPLETED_TAG:
                               showDialog(
                                 context: context,
                                 builder: (context) => AttentionDialog(
@@ -109,9 +112,7 @@ class TasksPage extends GetView<TasksController> {
                                     tasksController.deleteCompletedTasks();
                                     Get.back();
                                   },
-                                  onCancelTap: () {
-                                    Get.back();
-                                  },
+                                  onCancelTap: () => Get.back(),
                                 ),
                               );
                               break;
@@ -144,7 +145,7 @@ class TasksPage extends GetView<TasksController> {
             body: ListView.builder(
               padding: const EdgeInsets.only(bottom: 68),
               itemCount: tasksController.tasks.length,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 if (tasksController.tasks.isEmpty) return Container();
                 var task = tasksController.tasks[index];
@@ -174,19 +175,18 @@ class TasksPage extends GetView<TasksController> {
                     );
                     return deleted;
                   },
-                  onTaskTap: () {
-                    Get.toNamed(AppRoutes.ADD_EDIT, arguments: task);
-                  },
+                  onTaskTap: () =>
+                      Get.toNamed(AppRoutes.ADD_EDIT, arguments: task),
                 );
               },
             ),
             floatingActionButton: GetBuilder<TasksController>(
               builder: (homeController) => FloatingActionButton(
-                child: Icon(Icons.add),
+                child: const Icon(Icons.add),
                 onPressed: () async {
                   Get.toNamed(AppRoutes.ADD_EDIT);
                 },
-                backgroundColor: clrAsset,
+                backgroundColor: clrAccent,
                 elevation: 0,
                 highlightElevation: 0,
               ),

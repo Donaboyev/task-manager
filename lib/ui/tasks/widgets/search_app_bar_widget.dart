@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_clone/controller/tasks_controller.dart';
 import 'package:todo_clone/core/theme/app_colors.dart';
+import 'package:todo_clone/core/theme/app_text_styles.dart';
 
 class SearchAppBarWidget extends GetView<TasksController>
     implements PreferredSizeWidget {
@@ -30,26 +31,24 @@ class SearchAppBarWidget extends GetView<TasksController>
         title: TextField(
           onChanged: onChanged,
           controller: searchController,
-          style: new TextStyle(
-            color: clrAsset,
-          ),
+          style: stySearchText,
           autofocus: true,
-          cursorColor: clrAsset,
+          cursorColor: clrAccent,
           decoration: new InputDecoration(
             hintText: "Search...",
-            hintStyle: new TextStyle(color: clrGrayBlue),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: clrTransparent),
+            hintStyle: stySearchHint,
+            focusedBorder: const UnderlineInputBorder(
+              borderSide: const BorderSide(color: clrTransparent),
             ),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: clrTransparent),
+            enabledBorder: const UnderlineInputBorder(
+              borderSide: const BorderSide(color: clrTransparent),
             ),
           ),
         ),
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
-            color: clrAsset,
+            color: clrAccent,
           ),
           onPressed: onLeadingTap,
         ),
@@ -59,9 +58,9 @@ class SearchAppBarWidget extends GetView<TasksController>
               visible: controller.clearButtonEnabled,
               child: TextButton(
                 onPressed: onClearTap,
-                child: Text(
+                child: const Text(
                   'Clear',
-                  style: TextStyle(color: clrAsset),
+                  style: stySearchText,
                 ),
               ),
             ),

@@ -59,7 +59,6 @@ class TasksController extends GetxController {
       _repository!.getSortOrder(),
       _repository!.getHideCompleted(),
     );
-    for (Task task in _tasks!) print('================> id: ${task.id}');
     update();
   }
 

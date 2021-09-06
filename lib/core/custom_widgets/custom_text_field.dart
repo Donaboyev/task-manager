@@ -59,19 +59,19 @@ class CustomTextField extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 16,
-              color: clrAsset,
+              color: clrAccent,
             ),
           ),
         ),
         SizedBox(height: 8),
         TextFormField(
           readOnly: readOnly,
-          cursorColor: clrAsset,
+          cursorColor: clrAccent,
           keyboardType: keyboardType,
           style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,
-            color: clrAsset,
+            color: clrAccent,
           ),
           controller: controller,
           focusNode: currentFocus,
@@ -110,7 +110,7 @@ class CustomTextField extends StatelessWidget {
             ),
             suffixIcon: suffixIcon,
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: clrAsset, width: 1),
+              borderSide: BorderSide(color: clrAccent, width: 1),
               borderRadius: BorderRadius.circular(8),
             ),
             enabledBorder: OutlineInputBorder(
