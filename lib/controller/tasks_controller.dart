@@ -59,6 +59,7 @@ class TasksController extends GetxController {
       _repository!.getSortOrder(),
       _repository!.getHideCompleted(),
     );
+    for (Task task in _tasks!) print('================> id: ${task.id}');
     update();
   }
 
@@ -82,6 +83,12 @@ class TasksController extends GetxController {
       created: task.created,
     );
     await _repository!.updateTask(newTask);
+    update();
+  }
+
+  Future<void> deleteTask(Task task) async {
+    await _repository!.deleteTask(task);
+    _tasks!.remove(task);
     update();
   }
 

@@ -31,13 +31,13 @@ class SearchAppBarWidget extends GetView<TasksController>
           onChanged: onChanged,
           controller: searchController,
           style: new TextStyle(
-            color: clrBreaker,
+            color: clrAsset,
           ),
           autofocus: true,
-          cursorColor: clrBreaker,
+          cursorColor: clrAsset,
           decoration: new InputDecoration(
             hintText: "Search...",
-            hintStyle: new TextStyle(color: clrGrayer),
+            hintStyle: new TextStyle(color: clrGrayBlue),
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: clrTransparent),
             ),
@@ -49,7 +49,7 @@ class SearchAppBarWidget extends GetView<TasksController>
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: clrBreaker,
+            color: clrAsset,
           ),
           onPressed: onLeadingTap,
         ),
@@ -61,7 +61,7 @@ class SearchAppBarWidget extends GetView<TasksController>
                 onPressed: onClearTap,
                 child: Text(
                   'Clear',
-                  style: TextStyle(color: clrBreaker),
+                  style: TextStyle(color: clrAsset),
                 ),
               ),
             ),

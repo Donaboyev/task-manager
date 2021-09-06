@@ -32,6 +32,10 @@ class LocalSource {
     await _taskDao.updateTask(task);
   }
 
+  Future<void> deleteTask(Task task) async {
+    await _taskDao.deleteTask(task);
+  }
+
   Future<void> deleteAllCompletedTasks() async {
     await _taskDao.deleteCompletedTasks();
   }

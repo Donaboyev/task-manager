@@ -10,6 +10,7 @@ class AddEditTaskController extends GetxController {
 
   TextEditingController? taskInputController;
   RxBool _isImportant = false.obs;
+  RxBool _isInputError = false.obs;
 
   @override
   Future<void> onInit() async {
@@ -28,6 +29,16 @@ class AddEditTaskController extends GetxController {
     update();
   }
 
+  Future<void> setTaskToUpdate(Task task) async {
+    _isImportant.value = task.important!;
+    taskInputController!.text = task.name!;
+    update();
+  }
+
+  Future<void> setIsInputError(bool value) async {
+    _isInputError.value = value;
+  }
+
   Future<void> insertTask() async {
     await _repository!.insertTask(
       Task(
@@ -39,12 +50,12 @@ class AddEditTaskController extends GetxController {
     );
   }
 
-  Future<void> updateTask(Task task, bool isChecked) async {
+  Future<void> updateTask(Task task) async {
     Task newTask = Task(
       id: task.id,
-      name: task.name,
-      completed: isChecked,
-      important: task.important,
+      name: taskInputController!.text.toString().trim(),
+      completed: task.completed,
+      important: _isImportant.value,
       created: task.created,
     );
     await _repository!.updateTask(newTask);
@@ -52,4 +63,6 @@ class AddEditTaskController extends GetxController {
   }
 
   bool get isImportant => _isImportant.value;
+
+  bool get isInputError => _isInputError.value;
 }

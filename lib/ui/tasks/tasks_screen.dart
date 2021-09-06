@@ -44,7 +44,10 @@ class TasksPage extends GetView<TasksController> {
                           return {'Sort by name', 'Sort by date created'}.map(
                             (choice) {
                               return PopupMenuItem<String>(
-                                child: Text(choice),
+                                child: Text(
+                                  choice,
+                                  style: TextStyle(color: clrAsset),
+                                ),
                                 value: choice,
                               );
                             },
@@ -70,7 +73,10 @@ class TasksPage extends GetView<TasksController> {
                           PopupMenuItem<String>(
                             child: Row(
                               children: [
-                                Text('Hide completed'),
+                                Text(
+                                  'Hide completed',
+                                  style: TextStyle(color: clrAsset),
+                                ),
                                 Checkbox(
                                   value: tasksController.hideCompleted.value,
                                   onChanged: (value) {
@@ -83,7 +89,10 @@ class TasksPage extends GetView<TasksController> {
                             value: 'hide',
                           ),
                           PopupMenuItem(
-                            child: Text('Delete all completed'),
+                            child: Text(
+                              'Delete all completed',
+                              style: TextStyle(color: clrAsset),
+                            ),
                             value: 'delete all',
                           ),
                         ],
@@ -98,6 +107,9 @@ class TasksPage extends GetView<TasksController> {
                                 builder: (context) => AttentionDialog(
                                   onYesTap: () {
                                     tasksController.deleteCompletedTasks();
+                                    Get.back();
+                                  },
+                                  onCancelTap: () {
                                     Get.back();
                                   },
                                 ),
@@ -130,6 +142,7 @@ class TasksPage extends GetView<TasksController> {
                     clearButtonEnabled: tasksController.isSearching,
                   ),
             body: ListView.builder(
+              padding: const EdgeInsets.only(bottom: 68),
               itemCount: tasksController.tasks.length,
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {
@@ -141,6 +154,29 @@ class TasksPage extends GetView<TasksController> {
                     tasksController.updateTask(task, value);
                     tasksController.getTasks();
                   },
+                  onSwiped: (direction) async {
+                    bool deleted = false;
+                    showDialog(
+                      context: context,
+                      builder: (context) => AttentionDialog(
+                        title: 'Delete',
+                        description: 'Do you really want to delete this task?',
+                        onYesTap: () {
+                          tasksController.deleteTask(task);
+                          Get.back();
+                          deleted = true;
+                        },
+                        onCancelTap: () {
+                          Get.back();
+                          deleted = false;
+                        },
+                      ),
+                    );
+                    return deleted;
+                  },
+                  onTaskTap: () {
+                    Get.toNamed(AppRoutes.ADD_EDIT, arguments: task);
+                  },
                 );
               },
             ),
@@ -150,7 +186,7 @@ class TasksPage extends GetView<TasksController> {
                 onPressed: () async {
                   Get.toNamed(AppRoutes.ADD_EDIT);
                 },
-                backgroundColor: clrBreaker,
+                backgroundColor: clrAsset,
                 elevation: 0,
                 highlightElevation: 0,
               ),

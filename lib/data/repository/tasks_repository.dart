@@ -22,6 +22,10 @@ class TasksRepository {
     await _localSource!.updateTask(task);
   }
 
+  Future<void> deleteTask(Task task) async {
+    await _localSource!.deleteTask(task);
+  }
+
   Future<void> setSortOrder(SortOrder sortOrder) async {
     await _localSource!.setSortOrder(sortOrder);
   }

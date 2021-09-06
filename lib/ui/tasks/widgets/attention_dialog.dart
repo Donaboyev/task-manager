@@ -4,10 +4,16 @@ import 'package:todo_clone/core/theme/app_colors.dart';
 
 class AttentionDialog extends StatelessWidget {
   final VoidCallback? onYesTap;
+  final VoidCallback? onCancelTap;
+  final String? title;
+  final String? description;
 
   AttentionDialog({
     Key? key,
     this.onYesTap,
+    this.title,
+    this.description,
+    this.onCancelTap,
   }) : super(key: key);
 
   @override
@@ -22,7 +28,7 @@ class AttentionDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Confirm deletion',
+              title ?? 'Confirm deletion',
               style: TextStyle(
                 color: clrBlack,
                 fontSize: 20,
@@ -31,7 +37,8 @@ class AttentionDialog extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'Do you really want to delete all completed tasks?',
+              description ??
+                  'Do you really want to delete all completed tasks?',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: clrDivider,
@@ -44,9 +51,7 @@ class AttentionDialog extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: TextButton(
-                    onPressed: () {
-                      Get.back();
-                    },
+                    onPressed: onCancelTap,
                     child: Text('Cancel'),
                   ),
                 ),

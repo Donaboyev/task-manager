@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:todo_clone/base/base_functions.dart';
 import 'package:todo_clone/controller/add_edit_task_controller.dart';
 import 'package:todo_clone/controller/tasks_controller.dart';
+import 'package:todo_clone/core/custom_widgets/custom_text_field.dart';
 import 'package:todo_clone/core/theme/app_colors.dart';
 import 'package:todo_clone/core/theme/app_text_styles.dart';
+import 'package:todo_clone/data/local/floor/entity/task.dart';
 
 class AddEditTaskPage extends GetView<AddEditTaskController> {
+  final FocusNode _inputFocus = FocusNode();
+
   @override
   Widget build(BuildContext context) {
+    final task = Get.arguments as Task? ?? null;
+    if (task != null) controller.setTaskToUpdate(task);
     return KeyboardDismisser(
       child: SafeArea(
         child: GetBuilder<AddEditTaskController>(
@@ -20,51 +27,93 @@ class AddEditTaskPage extends GetView<AddEditTaskController> {
               leading: IconButton(
                 icon: Icon(
                   Icons.arrow_back_ios,
-                  color: clrBreaker,
+                  color: clrAsset,
                 ),
                 onPressed: () {
                   Get.back();
                 },
               ),
               title: Text(
-                'New task',
+                task != null ? 'Update task' : 'New task',
                 style: styActionAppbar,
               ),
             ),
             body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              child: ListView(
+                physics: BouncingScrollPhysics(),
                 children: [
-                  TextField(
-                    controller: addEditController.taskInputController,
-                    decoration: InputDecoration(hintText: 'Task name'),
+                  Obx(
+                    () => CustomTextField(
+                      context: context,
+                      inputAction: TextInputAction.done,
+                      controller: addEditController.taskInputController,
+                      currentFocus: _inputFocus,
+                      keyboardType: TextInputType.text,
+                      labelText: 'Input task',
+                      hintText: 'Enter...',
+                      showError: addEditController.isInputError,
+                      errorText: 'You must input task name!',
+                      onChanged: (value) {
+                        if (value.isNotEmpty)
+                          addEditController.setIsInputError(false);
+                      },
+                    ),
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      Text(
+                        'Important task: ',
+                        style: TextStyle(
+                          color: clrAsset,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(width: 8),
                       Obx(
                         () => Checkbox(
                           value: addEditController.isImportant,
                           onChanged: (value) {
                             addEditController.setIsImportant(value ?? false);
                           },
+                          activeColor: clrAsset,
                         ),
                       ),
-                      Text('Important task'),
                     ],
                   ),
                   Visibility(
-                    child: Text('Created: '),
-                    visible: true,
+                    child: Text(
+                      'Created: ${BaseFunctions.getCreatedDate(task?.created ?? 0)}',
+                      style: TextStyle(
+                        color: clrAsset,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    visible: task != null,
                   ),
                 ],
               ),
             ),
             floatingActionButton: GetBuilder<TasksController>(
               builder: (tasksController) => FloatingActionButton(
+                backgroundColor: clrAsset,
+                elevation: 0,
+                highlightElevation: 0,
                 child: Icon(Icons.check),
                 onPressed: () {
-                  addEditController.insertTask();
+                  if (addEditController.taskInputController!.text
+                      .trim()
+                      .isEmpty) {
+                    addEditController.setIsInputError(true);
+                    return;
+                  }
+                  task != null
+                      ? addEditController.updateTask(task)
+                      : addEditController.insertTask();
                   Get.back();
                   tasksController.getTasks();
                 },
