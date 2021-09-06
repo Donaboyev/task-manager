@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.donaboyev.todo_clone">
    <application
-        android:label="todo_clone"
+        android:label="Task Manager"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

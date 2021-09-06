@@ -144,44 +144,53 @@ class TasksPage extends GetView<TasksController> {
                     searchController: tasksController.searchController,
                     clearButtonEnabled: tasksController.isSearching,
                   ),
-            body: ListView.builder(
-              padding: const EdgeInsets.only(bottom: 68),
-              itemCount: tasksController.tasks.length,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) {
-                if (tasksController.tasks.isEmpty) return Container();
-                var task = tasksController.tasks[index];
-                return TaskItem(
-                  task: task,
-                  onCheck: (value) {
-                    tasksController.updateTask(task, value);
-                    tasksController.getTasks();
-                  },
-                  onSwiped: (direction) async {
-                    bool deleted = false;
-                    showDialog(
-                      context: context,
-                      builder: (context) => AttentionDialog(
-                        title: 'Delete',
-                        description: 'Do you really want to delete this task?',
-                        onYesTap: () {
-                          tasksController.deleteTask(task);
-                          Get.back();
-                          deleted = true;
+            body: (tasksController.tasks != null &&
+                    tasksController.tasks!.isNotEmpty)
+                ? ListView.builder(
+                    padding: const EdgeInsets.only(bottom: 68),
+                    itemCount: tasksController.tasks!.length,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      if (tasksController.tasks!.isEmpty) return Container();
+                      var task = tasksController.tasks![index];
+                      return TaskItem(
+                        task: task,
+                        onCheck: (value) {
+                          tasksController.updateTask(task, value);
+                          tasksController.getTasks();
                         },
-                        onCancelTap: () {
-                          Get.back();
-                          deleted = false;
+                        onSwiped: (direction) async {
+                          bool deleted = false;
+                          showDialog(
+                            context: context,
+                            builder: (context) => AttentionDialog(
+                              title: 'Delete',
+                              description:
+                                  'Do you really want to delete this task?',
+                              onYesTap: () {
+                                tasksController.deleteTask(task);
+                                Get.back();
+                                deleted = true;
+                              },
+                              onCancelTap: () {
+                                Get.back();
+                                deleted = false;
+                              },
+                            ),
+                          );
+                          return deleted;
                         },
-                      ),
-                    );
-                    return deleted;
-                  },
-                  onTaskTap: () =>
-                      Get.toNamed(AppRoutes.ADD_EDIT, arguments: task),
-                );
-              },
-            ),
+                        onTaskTap: () =>
+                            Get.toNamed(AppRoutes.ADD_EDIT, arguments: task),
+                      );
+                    },
+                  )
+                : Center(
+                    child: Text(
+                      'No tasks yet',
+                      style: styNoData,
+                    ),
+                  ),
             floatingActionButton: GetBuilder<TasksController>(
               builder: (homeController) => FloatingActionButton(
                 child: const Icon(Icons.add),

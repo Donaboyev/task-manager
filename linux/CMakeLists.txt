@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
-set(BINARY_NAME "todo_clone")
-set(APPLICATION_ID "com.donaboyev.todo_clone")
+set(BINARY_NAME "Task Manager")
+set(APPLICATION_ID "com.donaboyev.tugatdim")
 
 cmake_policy(SET CMP0063 NEW)
 

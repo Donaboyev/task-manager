@@ -7,6 +7,12 @@ const styActionAppbar = TextStyle(
   fontWeight: FontWeight.w600,
 );
 
+const styNoData = TextStyle(
+  color: clrGrayBlue,
+  fontSize: 22,
+  fontWeight: FontWeight.w600,
+);
+
 const styCompletedTaskTitle = TextStyle(
   color: clrGrayBlue,
   fontSize: 15,

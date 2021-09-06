@@ -102,5 +102,5 @@ class TasksController extends GetxController {
 
   RxBool get hideCompleted => _hideCompleted;
 
-  List<Task> get tasks => _tasks!;
+  List<Task>? get tasks => _tasks;
 }
