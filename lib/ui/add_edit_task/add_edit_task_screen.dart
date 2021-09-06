@@ -44,6 +44,7 @@ class AddEditTaskPage extends GetView<AddEditTaskController> {
                 children: [
                   Obx(
                     () => CustomTextField(
+                      autoFocus: true,
                       context: context,
                       inputAction: TextInputAction.done,
                       controller: addEditController.taskInputController,

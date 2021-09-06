@@ -81,6 +81,7 @@ class TasksPage extends GetView<TasksController> {
                                   style: stySearchText,
                                 ),
                                 Checkbox(
+                                  activeColor: clrAccent,
                                   value: tasksController.hideCompleted.value,
                                   onChanged: (value) {
                                     tasksController.setHideCompleted();
@@ -137,6 +138,7 @@ class TasksPage extends GetView<TasksController> {
                     },
                     onClearTap: () {
                       tasksController.searchController!.clear();
+                      tasksController.isClearButtonEnabled(false);
                       tasksController.getTasks();
                     },
                     searchController: tasksController.searchController,

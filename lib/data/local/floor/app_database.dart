@@ -14,8 +14,7 @@ abstract class AppDatabase extends FloorDatabase {
   static late AppDatabase instance;
 
   static Future<void> init() async {
-    instance = await $FloorAppDatabase
-        .databaseBuilder('todo_clone_database.db')
-        .build();
+    instance =
+        await $FloorAppDatabase.databaseBuilder('task_manager.db').build();
   }
 }
