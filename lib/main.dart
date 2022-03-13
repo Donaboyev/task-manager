@@ -6,25 +6,25 @@ import 'package:todo_clone/routes/app_pages.dart';
 import 'package:todo_clone/routes/app_routes.dart';
 import 'package:todo_clone/ui/tasks/tasks_screen.dart';
 
-void main() async {
+import 'routes/app_router.gr.dart';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (AppConstants.running == Version.wait) await TasksBinding().dependencies();
-  runApp(MyApp());
+  // if (AppConstants.running == Version.wait) await TasksBinding().dependencies();
+  final appRouter = AppRouter();
+  runApp(MyApp(appRouter: appRouter));
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
+class MyApp extends StatelessWidget {
+  final AppRouter appRouter;
 
-class _MyAppState extends State<MyApp> {
+  const MyApp({Key? key, required this.appRouter}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.INITIAL,
-      getPages: AppPages.pages,
-      home: TasksPage(),
+    return MaterialApp.router(
+      routeInformationParser: appRouter.defaultRouteParser(),
+      routerDelegate: appRouter.delegate(),
     );
   }
 }
