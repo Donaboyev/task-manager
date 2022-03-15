@@ -7,7 +7,7 @@ class AttentionDialog extends StatelessWidget {
   final String? title;
   final String? description;
 
-  AttentionDialog({
+  const AttentionDialog({
     Key? key,
     this.onYesTap,
     this.title,
@@ -28,14 +28,14 @@ class AttentionDialog extends StatelessWidget {
           children: [
             Text(
               title ?? 'Confirm deletion',
-              style: styDialogTitle,
+              style: AppStyles.styDialogTitle,
             ),
             const SizedBox(height: 16),
             Text(
               description ??
                   'Do you really want to delete all completed tasks?',
               textAlign: TextAlign.center,
-              style: styDialogDescription,
+              style: AppStyles.styDialogDescription,
             ),
             const SizedBox(height: 20),
             Row(

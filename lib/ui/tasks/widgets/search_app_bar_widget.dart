@@ -25,30 +25,30 @@ class SearchAppBarWidget extends GetView<TasksController>
   Widget build(BuildContext context) {
     return GetBuilder<TasksController>(
       builder: (tasksController) => AppBar(
-        backgroundColor: clrWhite,
+        backgroundColor: AppColors.clrWhite,
         elevation: 0,
         centerTitle: false,
         title: TextField(
           onChanged: onChanged,
           controller: searchController,
-          style: stySearchText,
+          style: AppStyles.stySearchText,
           autofocus: true,
-          cursorColor: clrAccent,
-          decoration: new InputDecoration(
+          cursorColor: AppColors.clrAccent,
+          decoration: const InputDecoration(
             hintText: "Search...",
-            hintStyle: stySearchHint,
-            focusedBorder: const UnderlineInputBorder(
-              borderSide: const BorderSide(color: clrTransparent),
+            hintStyle: AppStyles.stySearchHint,
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: AppColors.clrTransparent),
             ),
-            enabledBorder: const UnderlineInputBorder(
-              borderSide: const BorderSide(color: clrTransparent),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: AppColors.clrTransparent),
             ),
           ),
         ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
-            color: clrAccent,
+            color: AppColors.clrAccent,
           ),
           onPressed: onLeadingTap,
         ),
@@ -58,10 +58,7 @@ class SearchAppBarWidget extends GetView<TasksController>
               visible: controller.clearButtonEnabled,
               child: TextButton(
                 onPressed: onClearTap,
-                child: const Text(
-                  'Clear',
-                  style: stySearchText,
-                ),
+                child: const Text('Clear', style: AppStyles.stySearchText),
               ),
             ),
           ),

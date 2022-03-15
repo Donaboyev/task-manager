@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:todo_clone/core/theme/app_colors.dart';
@@ -25,7 +24,7 @@ class CustomTextField extends StatelessWidget {
   final bool maskedPhone;
   final bool readOnly;
 
-  CustomTextField({
+  const CustomTextField({
     Key? key,
     this.labelText,
     this.showError,
@@ -56,22 +55,22 @@ class CustomTextField extends StatelessWidget {
         RichText(
           text: TextSpan(
             text: labelText,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 16,
-              color: clrAccent,
+              color: AppColors.clrAccent,
             ),
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         TextFormField(
           readOnly: readOnly,
-          cursorColor: clrAccent,
+          cursorColor: AppColors.clrAccent,
           keyboardType: keyboardType,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,
-            color: clrAccent,
+            color: AppColors.clrAccent,
           ),
           controller: controller,
           focusNode: currentFocus,
@@ -99,46 +98,48 @@ class CustomTextField extends StatelessWidget {
           ),
           textInputAction: inputAction,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
             filled: true,
             hintText: hintText,
-            fillColor: clrBreakerHint,
-            hintStyle: TextStyle(
+            fillColor: AppColors.clrBreakerHint,
+            hintStyle: const TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w400,
-              color: clrGrayBlue,
+              color: AppColors.clrGrayBlue,
             ),
             suffixIcon: suffixIcon,
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: clrAccent, width: 1),
+              borderSide:
+                  const BorderSide(color: AppColors.clrAccent, width: 1),
               borderRadius: BorderRadius.circular(8),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: clrWhite, width: 1),
+              borderSide: const BorderSide(color: AppColors.clrWhite, width: 1),
               borderRadius: BorderRadius.circular(8),
             ),
             errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: clrRed, width: 1),
+              borderSide: const BorderSide(color: AppColors.clrRed, width: 1),
               borderRadius: BorderRadius.circular(8),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: clrRed, width: 1),
+              borderSide: const BorderSide(color: AppColors.clrRed, width: 1),
               borderRadius: BorderRadius.circular(8),
             ),
             errorText: showError ?? false ? errorText : null,
             prefix: maskedPhone
-                ? Text(
+                ? const Text(
                     "+998 ",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
-                      color: clrGrayer,
+                      color: AppColors.clrGrayer,
                     ),
                   )
                 : null,
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
       ],
     );
   }

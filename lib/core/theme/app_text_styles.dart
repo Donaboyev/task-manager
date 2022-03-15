@@ -1,62 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_clone/core/theme/app_colors.dart';
 
-const styActionAppbar = TextStyle(
-  color: clrAccent,
-  fontSize: 22,
-  fontWeight: FontWeight.w600,
-);
+class AppStyles {
+  static const styActionAppbar = TextStyle(
+    color: AppColors.clrAccent,
+    fontSize: 22,
+    fontWeight: FontWeight.w600,
+  );
 
-const styNoData = TextStyle(
-  color: clrGrayBlue,
-  fontSize: 22,
-  fontWeight: FontWeight.w600,
-);
+  static const styNoData = TextStyle(
+    color: AppColors.clrGrayBlue,
+    fontSize: 22,
+    fontWeight: FontWeight.w600,
+  );
 
-const styCompletedTaskTitle = TextStyle(
-  color: clrGrayBlue,
-  fontSize: 15,
-  fontWeight: FontWeight.w600,
-  decoration: TextDecoration.lineThrough,
-);
+  static const styCompletedTaskTitle = TextStyle(
+    color: AppColors.clrGrayBlue,
+    fontSize: 15,
+    fontWeight: FontWeight.w600,
+    decoration: TextDecoration.lineThrough,
+  );
 
-const styCompletedImportantTaskTitle = TextStyle(
-  color: clrRed,
-  fontSize: 15,
-  fontWeight: FontWeight.w600,
-  decoration: TextDecoration.lineThrough,
-);
+  static const styCompletedImportantTaskTitle = TextStyle(
+    color: AppColors.clrRed,
+    fontSize: 15,
+    fontWeight: FontWeight.w600,
+    decoration: TextDecoration.lineThrough,
+  );
 
-const styImportantTaskTitle = TextStyle(
-  color: clrRed,
-  fontSize: 15,
-  fontWeight: FontWeight.w600,
-);
+  static const styImportantTaskTitle = TextStyle(
+    color: AppColors.clrRed,
+    fontSize: 15,
+    fontWeight: FontWeight.w600,
+  );
 
-const styTaskTitle = TextStyle(
-  color: clrBreaker,
-  fontSize: 15,
-  fontWeight: FontWeight.w600,
-);
+  static const styTaskTitle = TextStyle(
+    color: AppColors.clrBreaker,
+    fontSize: 15,
+    fontWeight: FontWeight.w600,
+  );
 
-const styImportantNotes = TextStyle(
-  color: clrAccent,
-  fontSize: 16,
-  fontWeight: FontWeight.w500,
-);
+  static const styImportantNotes = TextStyle(
+    color: AppColors.clrAccent,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
+  static const styDialogTitle = TextStyle(
+    color: AppColors.clrAccent,
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+  );
 
-const styDialogTitle = TextStyle(
-  color: clrAccent,
-  fontSize: 20,
-  fontWeight: FontWeight.w700,
-);
+  static const styDialogDescription = TextStyle(
+    color: AppColors.clrGrayBlue,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+  );
 
-const styDialogDescription = TextStyle(
-  color: clrGrayBlue,
-  fontSize: 14,
-  fontWeight: FontWeight.w400,
-);
+  static const stySearchText = TextStyle(color: AppColors.clrAccent);
 
-const stySearchText = TextStyle(color: clrAccent);
+  static const stySearchHint = TextStyle(color: AppColors.clrGrayBlue);
 
-const stySearchHint = TextStyle(color: clrGrayBlue);
+  static TextStyle styAppBarTitle = GoogleFonts.poppins(
+    textStyle: const TextStyle(
+      fontWeight: FontWeight.w400,
+      color: AppColors.clrBlack,
+      fontSize: 20,
+    ),
+  );
+}

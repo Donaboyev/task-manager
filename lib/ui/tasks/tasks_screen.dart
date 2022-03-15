@@ -11,26 +11,28 @@ import 'package:todo_clone/ui/tasks/widgets/search_app_bar_widget.dart';
 import 'package:todo_clone/ui/tasks/widgets/task_item_widget.dart';
 
 class TasksPage extends GetView<TasksController> {
+  const TasksPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return KeyboardDismisser(
       child: SafeArea(
         child: GetBuilder<TasksController>(
           builder: (tasksController) => Scaffold(
-            backgroundColor: clrWhite,
+            backgroundColor: AppColors.clrWhite,
             appBar: !tasksController.isSearching
                 ? AppBar(
-                    backgroundColor: clrWhite,
+                    backgroundColor: AppColors.clrWhite,
                     elevation: 0,
                     title: const Text(
                       'Tasks',
-                      style: styActionAppbar,
+                      style: AppStyles.styActionAppbar,
                     ),
                     actions: [
                       IconButton(
                         icon: const Icon(
                           Icons.search,
-                          color: clrAccent,
+                          color: AppColors.clrAccent,
                         ),
                         onPressed: () => tasksController.setIsSearching(true),
                       ),
@@ -38,7 +40,7 @@ class TasksPage extends GetView<TasksController> {
                         tooltip: 'Sorting types',
                         icon: const Icon(
                           Icons.sort,
-                          color: clrAccent,
+                          color: AppColors.clrAccent,
                         ),
                         itemBuilder: (context) {
                           return {
@@ -49,7 +51,8 @@ class TasksPage extends GetView<TasksController> {
                               return PopupMenuItem<String>(
                                 child: Text(
                                   choice,
-                                  style: TextStyle(color: clrAccent),
+                                  style: const TextStyle(
+                                      color: AppColors.clrAccent),
                                 ),
                                 value: choice,
                               );
@@ -70,7 +73,7 @@ class TasksPage extends GetView<TasksController> {
                       PopupMenuButton<String>(
                         icon: const Icon(
                           Icons.more_vert,
-                          color: clrAccent,
+                          color: AppColors.clrAccent,
                         ),
                         itemBuilder: (_) => <PopupMenuItem<String>>[
                           PopupMenuItem<String>(
@@ -78,10 +81,10 @@ class TasksPage extends GetView<TasksController> {
                               children: [
                                 const Text(
                                   'Hide completed',
-                                  style: stySearchText,
+                                  style: AppStyles.stySearchText,
                                 ),
                                 Checkbox(
-                                  activeColor: clrAccent,
+                                  activeColor: AppColors.clrAccent,
                                   value: tasksController.hideCompleted.value,
                                   onChanged: (value) {
                                     tasksController.setHideCompleted();
@@ -92,10 +95,10 @@ class TasksPage extends GetView<TasksController> {
                             ),
                             value: AppConstants.HIDE_COMPLETED_TAG,
                           ),
-                          PopupMenuItem(
-                            child: const Text(
+                          const PopupMenuItem(
+                            child: Text(
                               'Delete all completed',
-                              style: stySearchText,
+                              style: AppStyles.stySearchText,
                             ),
                             value: AppConstants.DELETE_ALL_COMPLETED_TAG,
                           ),
@@ -185,10 +188,10 @@ class TasksPage extends GetView<TasksController> {
                       );
                     },
                   )
-                : Center(
+                : const Center(
                     child: Text(
                       'No tasks yet',
-                      style: styNoData,
+                      style: AppStyles.styNoData,
                     ),
                   ),
             floatingActionButton: GetBuilder<TasksController>(
@@ -197,7 +200,7 @@ class TasksPage extends GetView<TasksController> {
                 onPressed: () async {
                   Get.toNamed(AppRoutes.ADD_EDIT);
                 },
-                backgroundColor: clrAccent,
+                backgroundColor: AppColors.clrAccent,
                 elevation: 0,
                 highlightElevation: 0,
               ),

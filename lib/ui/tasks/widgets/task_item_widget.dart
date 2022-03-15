@@ -22,7 +22,7 @@ class TaskItem extends GetView<TasksController> {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: Key('${task!.id.toString()}'),
+      key: Key(task!.id.toString()),
       confirmDismiss: onSwiped,
       child: GetBuilder<TasksController>(
         builder: (tasksController) {
@@ -34,13 +34,17 @@ class TaskItem extends GetView<TasksController> {
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: task!.important! ? clrSindre : clrGrayer,
+                  color: task!.important!
+                      ? AppColors.clrSindre
+                      : AppColors.clrGrayer,
                 ),
                 borderRadius: BorderRadius.circular(12),
-                color: task!.important! ? clrRedHint : clrBreakerHint,
+                color: task!.important!
+                    ? AppColors.clrRedHint
+                    : AppColors.clrBreakerHint,
               ),
               child: Material(
-                color: clrTransparent,
+                color: AppColors.clrTransparent,
                 child: InkWell(
                   onTap: onTaskTap,
                   borderRadius: BorderRadius.circular(12),
@@ -59,12 +63,13 @@ class TaskItem extends GetView<TasksController> {
                                     shape: const CircleBorder(),
                                     value: task!.completed,
                                     onChanged: (value) => onCheck!(value!),
-                                    activeColor:
-                                        task!.important! ? clrRed : clrBreaker,
+                                    activeColor: task!.important!
+                                        ? AppColors.clrRed
+                                        : AppColors.clrBreaker,
                                     side: BorderSide(
                                       color: task!.important!
-                                          ? clrRed
-                                          : clrBreaker,
+                                          ? AppColors.clrRed
+                                          : AppColors.clrBreaker,
                                     ),
                                   ),
                                   Expanded(
@@ -75,11 +80,14 @@ class TaskItem extends GetView<TasksController> {
                                         task!.name ?? '',
                                         style: task!.completed!
                                             ? (task!.important!
-                                                ? styCompletedImportantTaskTitle
-                                                : styCompletedTaskTitle)
+                                                ? AppStyles
+                                                    .styCompletedImportantTaskTitle
+                                                : AppStyles
+                                                    .styCompletedTaskTitle)
                                             : (task!.important!
-                                                ? styImportantTaskTitle
-                                                : styTaskTitle),
+                                                ? AppStyles
+                                                    .styImportantTaskTitle
+                                                : AppStyles.styTaskTitle),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -90,10 +98,10 @@ class TaskItem extends GetView<TasksController> {
                             ),
                             task!.important!
                                 ? const Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: const Icon(
+                                    padding: EdgeInsets.only(right: 8.0),
+                                    child: Icon(
                                       Icons.notification_important_sharp,
-                                      color: clrRed,
+                                      color: AppColors.clrRed,
                                     ),
                                   )
                                 : Container(),
