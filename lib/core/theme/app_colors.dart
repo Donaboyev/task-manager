@@ -14,4 +14,6 @@ class AppColors {
   static const Color clrDivider = Color(0xff3D3E3F);
   static const Color clrTransparent = Color(0x00FFFFFF);
   static const Color clrBlack = Color(0xFF000000);
+  static const Color clrGreen = Color(0xFF00FF00);
+  static const Color clrYellow = Color(0xFFFFFF00);
 }

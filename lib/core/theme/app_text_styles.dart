@@ -69,4 +69,20 @@ class AppStyles {
       fontSize: 20,
     ),
   );
+
+  static TextStyle styNoteTitleMobile = GoogleFonts.poppins(
+    textStyle: const TextStyle(
+      fontWeight: FontWeight.w400,
+      color: AppColors.clrBlack,
+      fontSize: 16,
+    ),
+  );
+
+  static TextStyle styNoteDescriptionMobile = GoogleFonts.poppins(
+    textStyle: const TextStyle(
+      fontWeight: FontWeight.w400,
+      color: AppColors.clrBlack,
+      fontSize: 11,
+    ),
+  );
 }

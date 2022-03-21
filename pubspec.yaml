@@ -20,6 +20,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   keyboard_dismisser: ^2.0.0
   modal_bottom_sheet: ^2.0.1
+  equatable: ^2.0.3
+  moor_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:
