@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:todo_clone/base/base_functions.dart';
 import 'package:todo_clone/components/bouncing/bouncing_physics.dart';
+import 'package:todo_clone/components/buttons/floating_action_button.dart';
+import 'package:todo_clone/components/buttons/mobile_icon_button.dart';
 import 'package:todo_clone/components/cutom_bnb_painter.dart';
 import 'package:todo_clone/components/widgets/w_note_mobile_item.dart';
 
@@ -96,28 +98,77 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SafeArea(
-        child: CupertinoScaffold(
-          body: Builder(
-            builder: (context) => CupertinoPageScaffold(
-              child: Stack(
-                children: [],
+    return Material(
+      child: Scaffold(
+        body: CupertinoPageScaffold(
+          child: Column(
+            children: <Widget>[],
+          ),
+        ),
+        floatingActionButton: CustomFloatingActionButton(
+          Icons.add,
+          onPressed: () {
+            showCupertinoModalBottomSheet(
+              expand: true,
+              context: context,
+              backgroundColor: Colors.transparent,
+              builder: (context) => const ModalFit(),
+            );
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomAppBar(
+          shape: const CircularNotchedRectangle(),
+          color: AppColors.clrAccent,
+          child: SizedBox(
+            height: 64,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MobileIconButton(
+                    Icons.sort,
+                    onPressed: () {
+                      showCupertinoModalBottomSheet(
+                        expand: false,
+                        context: context,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => const ModalFit(),
+                      );
+                    },
+                  ),
+                  Row(
+                    children: [
+                      MobileIconButton(
+                        Icons.search,
+                        onPressed: () {
+                          showCupertinoModalBottomSheet(
+                            expand: true,
+                            context: context,
+                            backgroundColor: Colors.transparent,
+                            builder: (context) => const ModalFit(),
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 24),
+                      MobileIconButton(
+                        Icons.more_vert,
+                        onPressed: () {
+                          showCupertinoModalBottomSheet(
+                            expand: false,
+                            context: context,
+                            backgroundColor: Colors.transparent,
+                            builder: (context) => const ModalFit(),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {},
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        color: AppColors.clrGreen,
-        shape: const CircularNotchedRectangle(),
-        child: Container(
-          height: 56,
         ),
       ),
     );
