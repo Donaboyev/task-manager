@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:todo_clone/base/base_functions.dart';
 import 'package:todo_clone/components/bouncing/bouncing_physics.dart';
@@ -98,74 +99,85 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Material(
-      child: Scaffold(
-        body: CupertinoPageScaffold(
-          child: Column(
-            children: <Widget>[],
+    return AnnotatedRegion(
+      value: SystemUiOverlayStyle(
+        statusBarColor: AppColors.clrAccent.withOpacity(0.9)
+      ),
+      child: Material(
+        child: Scaffold(
+          body: CupertinoPageScaffold(
+            child: ListView.builder(
+              itemCount: staticNotes.length,
+              itemBuilder: (context, index) {
+                final note = staticNotes[index];
+                return WNoteMobileItem(note: note);
+              },
+            ),
           ),
-        ),
-        floatingActionButton: CustomFloatingActionButton(
-          Icons.add,
-          onPressed: () {
-            showCupertinoModalBottomSheet(
-              expand: true,
-              context: context,
-              backgroundColor: Colors.transparent,
-              builder: (context) => const ModalFit(),
-            );
-          },
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: BottomAppBar(
-          shape: const CircularNotchedRectangle(),
-          color: AppColors.clrAccent,
-          child: SizedBox(
-            height: 64,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MobileIconButton(
-                    Icons.sort,
-                    onPressed: () {
-                      showCupertinoModalBottomSheet(
-                        expand: false,
-                        context: context,
-                        backgroundColor: Colors.transparent,
-                        builder: (context) => const ModalFit(),
-                      );
-                    },
-                  ),
-                  Row(
-                    children: [
-                      MobileIconButton(
-                        Icons.search,
-                        onPressed: () {
-                          showCupertinoModalBottomSheet(
-                            expand: true,
-                            context: context,
-                            backgroundColor: Colors.transparent,
-                            builder: (context) => const ModalFit(),
-                          );
-                        },
-                      ),
-                      const SizedBox(width: 24),
-                      MobileIconButton(
-                        Icons.more_vert,
-                        onPressed: () {
-                          showCupertinoModalBottomSheet(
-                            expand: false,
-                            context: context,
-                            backgroundColor: Colors.transparent,
-                            builder: (context) => const ModalFit(),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+          floatingActionButton: CustomFloatingActionButton(
+            Icons.add,
+            onPressed: () {
+              showCupertinoModalBottomSheet(
+                expand: true,
+                context: context,
+                backgroundColor: Colors.transparent,
+                builder: (context) => const ModalFit(),
+              );
+            },
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: BottomAppBar(
+            shape: const CircularNotchedRectangle(),
+            color: AppColors.clrAccent,
+            child: Container(
+              color: AppColors.clrTransparent,
+              height: 64,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MobileIconButton(
+                      Icons.sort,
+                      onPressed: () {
+                        showCupertinoModalBottomSheet(
+                          expand: false,
+                          context: context,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => const ModalFit(),
+                        );
+                      },
+                    ),
+                    Row(
+                      children: [
+                        MobileIconButton(
+                          Icons.search,
+                          onPressed: () {
+                            showCupertinoModalBottomSheet(
+                              expand: true,
+                              context: context,
+                              backgroundColor: Colors.transparent,
+                              builder: (context) => const ModalFit(),
+                            );
+                          },
+                        ),
+                        const SizedBox(width: 24),
+                        MobileIconButton(
+                          Icons.more_vert,
+                          onPressed: () {
+                            showCupertinoModalBottomSheet(
+                              expand: false,
+                              context: context,
+                              backgroundColor: Colors.transparent,
+                              builder: (context) => const ModalFit(),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
