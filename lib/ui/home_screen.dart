@@ -7,7 +7,7 @@ import 'package:todo_clone/components/bouncing/bouncing_physics.dart';
 import 'package:todo_clone/components/buttons/floating_action_button.dart';
 import 'package:todo_clone/components/buttons/mobile_icon_button.dart';
 import 'package:todo_clone/components/cutom_bnb_painter.dart';
-import 'package:todo_clone/components/widgets/w_note_mobile_item.dart';
+import 'package:todo_clone/components/widgets/w_task_mobile_item.dart';
 
 import 'package:todo_clone/core/theme/app_colors.dart';
 import 'package:todo_clone/core/theme/app_text_styles.dart';
@@ -110,7 +110,13 @@ class HomeScreen extends StatelessWidget {
               itemCount: staticNotes.length,
               itemBuilder: (context, index) {
                 final note = staticNotes[index];
-                return WNoteMobileItem(note: note);
+                return WTaskMobileItem
+
+
+
+
+
+                  (task: note);
               },
             ),
           ),
