@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class MaskedTextInputFormatter extends TextInputFormatter {
@@ -18,7 +17,7 @@ class MaskedTextInputFormatter extends TextInputFormatter {
       TextEditingValue oldValue, TextEditingValue newValue) {
     String text = newValue.text;
     String newText = newValue.toJSON()['text'].toString();
-    if (text.length > 0) {
+    if (text.isNotEmpty) {
       if (text.length > oldValue.text.length) {
         if (text.length > mask!.length) return oldValue;
         if (text.length < mask!.length && mask![text.length - 1] == separator) {

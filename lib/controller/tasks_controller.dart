@@ -11,11 +11,11 @@ class TasksController extends GetxController {
 
   TasksController(this._repository);
 
-  RxBool _isSearching = false.obs;
-  RxBool _clearButtonEnabled = false.obs;
+  final RxBool _isSearching = false.obs;
+  final RxBool _clearButtonEnabled = false.obs;
   TextEditingController? searchController;
   List<Task>? _tasks;
-  RxBool _hideCompleted = false.obs;
+  final RxBool _hideCompleted = false.obs;
 
   @override
   Future<void> onInit() async {

@@ -5,7 +5,7 @@ import 'package:todo_clone/data/local/floor/dao/tasks_dao.dart';
 import 'package:todo_clone/data/local/floor/entity/task.dart';
 
 class LocalSource {
-  var _localStorage = GetStorage();
+  final _localStorage = GetStorage();
   final TasksDao _taskDao = AppDatabase.instance.tasksDao;
 
   LocalSource._();
@@ -15,8 +15,9 @@ class LocalSource {
   static LocalSource? getInstance() {
     if (_instance != null) {
       return _instance;
-    } else
+    } else {
       return LocalSource._();
+    }
   }
 
   Future<List<Task>> getTasks(
@@ -45,9 +46,9 @@ class LocalSource {
 
   SortOrder getSortOrder() =>
       (_localStorage.read<String>('sort_order') ?? '') ==
-              SortOrder.BY_DATE.value
-          ? SortOrder.BY_DATE
-          : SortOrder.BY_NAME;
+              SortOrder.byDate.value
+          ? SortOrder.byDate
+          : SortOrder.byName;
 
   Future<void> setHideCompleted(bool value) async =>
       await _localStorage.write('hide_completed', value);

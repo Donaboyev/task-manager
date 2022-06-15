@@ -9,7 +9,7 @@ abstract class TasksDao {
     SortOrder sortOrder,
     bool hideCompleted,
   ) =>
-      sortOrder == SortOrder.BY_DATE
+      sortOrder == SortOrder.byDate
           ? getTasksSortedByDateCreated(query, hideCompleted)
           : getTasksSortedByName(query, hideCompleted);
 

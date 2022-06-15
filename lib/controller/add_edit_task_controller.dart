@@ -9,8 +9,8 @@ class AddEditTaskController extends GetxController {
   AddEditTaskController(this._repository);
 
   TextEditingController? taskInputController;
-  RxBool _isImportant = false.obs;
-  RxBool _isInputError = false.obs;
+  final RxBool _isImportant = false.obs;
+  final RxBool _isInputError = false.obs;
 
   @override
   Future<void> onInit() async {

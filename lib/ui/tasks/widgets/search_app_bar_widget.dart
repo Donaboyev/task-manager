@@ -25,30 +25,30 @@ class SearchAppBarWidget extends GetView<TasksController>
   Widget build(BuildContext context) {
     return GetBuilder<TasksController>(
       builder: (tasksController) => AppBar(
-        backgroundColor: AppColors.clrWhite,
+        backgroundColor: clrWhite,
         elevation: 0,
         centerTitle: false,
         title: TextField(
           onChanged: onChanged,
           controller: searchController,
-          style: AppStyles.stySearchText,
+          style: stySearchText,
           autofocus: true,
-          cursorColor: AppColors.clrAccent,
+          cursorColor: clrAccent,
           decoration: const InputDecoration(
             hintText: "Search...",
-            hintStyle: AppStyles.stySearchHint,
+            hintStyle: stySearchHint,
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.clrTransparent),
+              borderSide: BorderSide(color: clrTransparent),
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.clrTransparent),
+              borderSide: BorderSide(color: clrTransparent),
             ),
           ),
         ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
-            color: AppColors.clrAccent,
+            color: clrAccent,
           ),
           onPressed: onLeadingTap,
         ),
@@ -58,7 +58,10 @@ class SearchAppBarWidget extends GetView<TasksController>
               visible: controller.clearButtonEnabled,
               child: TextButton(
                 onPressed: onClearTap,
-                child: const Text('Clear', style: AppStyles.stySearchText),
+                child: const Text(
+                  'Clear',
+                  style: stySearchText,
+                ),
               ),
             ),
           ),

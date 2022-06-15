@@ -34,17 +34,13 @@ class TaskItem extends GetView<TasksController> {
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: task!.important!
-                      ? AppColors.clrSindre
-                      : AppColors.clrGrayer,
+                  color: task!.important! ? clrSindre : clrGrayer,
                 ),
                 borderRadius: BorderRadius.circular(12),
-                color: task!.important!
-                    ? AppColors.clrRedHint
-                    : AppColors.clrBreakerHint,
+                color: task!.important! ? clrRedHint : clrBreakerHint,
               ),
               child: Material(
-                color: AppColors.clrTransparent,
+                color: clrTransparent,
                 child: InkWell(
                   onTap: onTaskTap,
                   borderRadius: BorderRadius.circular(12),
@@ -63,13 +59,12 @@ class TaskItem extends GetView<TasksController> {
                                     shape: const CircleBorder(),
                                     value: task!.completed,
                                     onChanged: (value) => onCheck!(value!),
-                                    activeColor: task!.important!
-                                        ? AppColors.clrRed
-                                        : AppColors.clrBreaker,
+                                    activeColor:
+                                        task!.important! ? clrRed : clrBreaker,
                                     side: BorderSide(
                                       color: task!.important!
-                                          ? AppColors.clrRed
-                                          : AppColors.clrBreaker,
+                                          ? clrRed
+                                          : clrBreaker,
                                     ),
                                   ),
                                   Expanded(
@@ -80,14 +75,11 @@ class TaskItem extends GetView<TasksController> {
                                         task!.name ?? '',
                                         style: task!.completed!
                                             ? (task!.important!
-                                                ? AppStyles
-                                                    .styCompletedImportantTaskTitle
-                                                : AppStyles
-                                                    .styCompletedTaskTitle)
+                                                ? styCompletedImportantTaskTitle
+                                                : styCompletedTaskTitle)
                                             : (task!.important!
-                                                ? AppStyles
-                                                    .styImportantTaskTitle
-                                                : AppStyles.styTaskTitle),
+                                                ? styImportantTaskTitle
+                                                : styTaskTitle),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -101,7 +93,7 @@ class TaskItem extends GetView<TasksController> {
                                     padding: EdgeInsets.only(right: 8.0),
                                     child: Icon(
                                       Icons.notification_important_sharp,
-                                      color: AppColors.clrRed,
+                                      color: clrRed,
                                     ),
                                   )
                                 : Container(),

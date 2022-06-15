@@ -12,7 +12,7 @@ import 'package:todo_clone/data/local/floor/entity/task.dart';
 class AddEditTaskPage extends GetView<AddEditTaskController> {
   final FocusNode _inputFocus = FocusNode();
 
-  AddEditTaskPage({Key? key}) : super(key: key);
+   AddEditTaskPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,20 +22,20 @@ class AddEditTaskPage extends GetView<AddEditTaskController> {
       child: SafeArea(
         child: GetBuilder<AddEditTaskController>(
           builder: (addEditController) => Scaffold(
-            backgroundColor: AppColors.clrWhite,
+            backgroundColor: clrWhite,
             appBar: AppBar(
-              backgroundColor: AppColors.clrWhite,
+              backgroundColor: clrWhite,
               elevation: 0,
               leading: IconButton(
                 icon: const Icon(
                   Icons.arrow_back_ios,
-                  color: AppColors.clrAccent,
+                  color: clrAccent,
                 ),
                 onPressed: () => Get.back(),
               ),
               title: Text(
                 task != null ? 'Update task' : 'New task',
-                style: AppStyles.styActionAppbar,
+                style: styActionAppbar,
               ),
             ),
             body: Padding(
@@ -68,7 +68,7 @@ class AddEditTaskPage extends GetView<AddEditTaskController> {
                     children: [
                       const Text(
                         'Important task: ',
-                        style: AppStyles.styImportantNotes,
+                        style: styImportantNotes,
                       ),
                       const SizedBox(width: 8),
                       Obx(
@@ -76,7 +76,7 @@ class AddEditTaskPage extends GetView<AddEditTaskController> {
                           value: addEditController.isImportant,
                           onChanged: (value) =>
                               addEditController.setIsImportant(value ?? false),
-                          activeColor: AppColors.clrAccent,
+                          activeColor: clrAccent,
                         ),
                       ),
                     ],
@@ -84,7 +84,7 @@ class AddEditTaskPage extends GetView<AddEditTaskController> {
                   Visibility(
                     child: Text(
                       'Created: ${BaseFunctions.getCreatedDate(task?.created ?? 0)}',
-                      style: AppStyles.styImportantNotes,
+                      style: styImportantNotes,
                     ),
                     visible: task != null,
                   ),
@@ -93,7 +93,7 @@ class AddEditTaskPage extends GetView<AddEditTaskController> {
             ),
             floatingActionButton: GetBuilder<TasksController>(
               builder: (tasksController) => FloatingActionButton(
-                backgroundColor: AppColors.clrAccent,
+                backgroundColor: clrAccent,
                 elevation: 0,
                 highlightElevation: 0,
                 child: const Icon(Icons.check),

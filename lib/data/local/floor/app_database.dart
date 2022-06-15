@@ -7,7 +7,7 @@ import 'package:todo_clone/data/local/floor/entity/task.dart';
 
 part 'app_database.g.dart';
 
-@Database(version: AppConstants.DATABASE_VERSION, entities: [Task])
+@Database(version: AppConstants.databaseVersion, entities: [Task])
 abstract class AppDatabase extends FloorDatabase {
   TasksDao get tasksDao;
 

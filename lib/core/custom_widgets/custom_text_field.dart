@@ -58,19 +58,19 @@ class CustomTextField extends StatelessWidget {
             style: const TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 16,
-              color: AppColors.clrAccent,
+              color: clrAccent,
             ),
           ),
         ),
         const SizedBox(height: 8),
         TextFormField(
           readOnly: readOnly,
-          cursorColor: AppColors.clrAccent,
+          cursorColor: clrAccent,
           keyboardType: keyboardType,
           style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,
-            color: AppColors.clrAccent,
+            color: clrAccent,
           ),
           controller: controller,
           focusNode: currentFocus,
@@ -102,28 +102,27 @@ class CustomTextField extends StatelessWidget {
                 const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
             filled: true,
             hintText: hintText,
-            fillColor: AppColors.clrBreakerHint,
+            fillColor: clrBreakerHint,
             hintStyle: const TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w400,
-              color: AppColors.clrGrayBlue,
+              color: clrGrayBlue,
             ),
             suffixIcon: suffixIcon,
             focusedBorder: OutlineInputBorder(
-              borderSide:
-                  const BorderSide(color: AppColors.clrAccent, width: 1),
+              borderSide: const BorderSide(color: clrAccent, width: 1),
               borderRadius: BorderRadius.circular(8),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: AppColors.clrWhite, width: 1),
+              borderSide: const BorderSide(color: clrWhite, width: 1),
               borderRadius: BorderRadius.circular(8),
             ),
             errorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: AppColors.clrRed, width: 1),
+              borderSide: const BorderSide(color: clrRed, width: 1),
               borderRadius: BorderRadius.circular(8),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: AppColors.clrRed, width: 1),
+              borderSide: const BorderSide(color: clrRed, width: 1),
               borderRadius: BorderRadius.circular(8),
             ),
             errorText: showError ?? false ? errorText : null,
@@ -133,7 +132,7 @@ class CustomTextField extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
-                      color: AppColors.clrGrayer,
+                      color: clrGrayer,
                     ),
                   )
                 : null,

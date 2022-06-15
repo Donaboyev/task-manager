@@ -8,12 +8,12 @@ import 'package:todo_clone/ui/tasks/tasks_screen.dart';
 class AppPages {
   static final pages = [
     GetPage(
-      name: AppRoutes.INITIAL,
-      page: () => TasksPage(),
+      name: AppRoutes.initial,
+      page: () => const TasksPage(),
       binding: TasksBinding(),
     ),
     GetPage(
-      name: AppRoutes.ADD_EDIT,
+      name: AppRoutes.addEdit,
       page: () => AddEditTaskPage(),
       binding: AddEditTaskBinding(),
     ),

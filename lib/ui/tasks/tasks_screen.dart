@@ -19,20 +19,20 @@ class TasksPage extends GetView<TasksController> {
       child: SafeArea(
         child: GetBuilder<TasksController>(
           builder: (tasksController) => Scaffold(
-            backgroundColor: AppColors.clrWhite,
+            backgroundColor: clrWhite,
             appBar: !tasksController.isSearching
                 ? AppBar(
-                    backgroundColor: AppColors.clrWhite,
+                    backgroundColor: clrWhite,
                     elevation: 0,
                     title: const Text(
                       'Tasks',
-                      style: AppStyles.styActionAppbar,
+                      style: styActionAppbar,
                     ),
                     actions: [
                       IconButton(
                         icon: const Icon(
                           Icons.search,
-                          color: AppColors.clrAccent,
+                          color: clrAccent,
                         ),
                         onPressed: () => tasksController.setIsSearching(true),
                       ),
@@ -40,19 +40,18 @@ class TasksPage extends GetView<TasksController> {
                         tooltip: 'Sorting types',
                         icon: const Icon(
                           Icons.sort,
-                          color: AppColors.clrAccent,
+                          color: clrAccent,
                         ),
                         itemBuilder: (context) {
                           return {
-                            AppConstants.SORT_BY_NAME_TAG,
-                            AppConstants.SORT_BY_DATE_TAG
+                            AppConstants.tagSortByName,
+                            AppConstants.tagSortByDate
                           }.map(
                             (choice) {
                               return PopupMenuItem<String>(
                                 child: Text(
                                   choice,
-                                  style: const TextStyle(
-                                      color: AppColors.clrAccent),
+                                  style: const TextStyle(color: clrAccent),
                                 ),
                                 value: choice,
                               );
@@ -61,11 +60,11 @@ class TasksPage extends GetView<TasksController> {
                         },
                         onSelected: (value) {
                           switch (value) {
-                            case AppConstants.SORT_BY_NAME_TAG:
-                              tasksController.setSortOrder(SortOrder.BY_NAME);
+                            case AppConstants.tagSortByName:
+                              tasksController.setSortOrder(SortOrder.byName);
                               break;
-                            case AppConstants.SORT_BY_DATE_TAG:
-                              tasksController.setSortOrder(SortOrder.BY_DATE);
+                            case AppConstants.tagSortByDate:
+                              tasksController.setSortOrder(SortOrder.byDate);
                               break;
                           }
                         },
@@ -73,7 +72,7 @@ class TasksPage extends GetView<TasksController> {
                       PopupMenuButton<String>(
                         icon: const Icon(
                           Icons.more_vert,
-                          color: AppColors.clrAccent,
+                          color: clrAccent,
                         ),
                         itemBuilder: (_) => <PopupMenuItem<String>>[
                           PopupMenuItem<String>(
@@ -81,10 +80,10 @@ class TasksPage extends GetView<TasksController> {
                               children: [
                                 const Text(
                                   'Hide completed',
-                                  style: AppStyles.stySearchText,
+                                  style: stySearchText,
                                 ),
                                 Checkbox(
-                                  activeColor: AppColors.clrAccent,
+                                  activeColor: clrAccent,
                                   value: tasksController.hideCompleted.value,
                                   onChanged: (value) {
                                     tasksController.setHideCompleted();
@@ -93,22 +92,22 @@ class TasksPage extends GetView<TasksController> {
                                 ),
                               ],
                             ),
-                            value: AppConstants.HIDE_COMPLETED_TAG,
+                            value: AppConstants.tagHideCompleted,
                           ),
                           const PopupMenuItem(
                             child: Text(
                               'Delete all completed',
-                              style: AppStyles.stySearchText,
+                              style: stySearchText,
                             ),
-                            value: AppConstants.DELETE_ALL_COMPLETED_TAG,
+                            value: AppConstants.tagDeleteAllCompleted,
                           ),
                         ],
                         onSelected: (value) {
                           switch (value) {
-                            case AppConstants.HIDE_COMPLETED_TAG:
+                            case AppConstants.tagHideCompleted:
                               tasksController.setHideCompleted();
                               break;
-                            case AppConstants.DELETE_ALL_COMPLETED_TAG:
+                            case AppConstants.tagDeleteAllCompleted:
                               showDialog(
                                 context: context,
                                 builder: (context) => AttentionDialog(
@@ -184,23 +183,23 @@ class TasksPage extends GetView<TasksController> {
                           return deleted;
                         },
                         onTaskTap: () =>
-                            Get.toNamed(AppRoutes.ADD_EDIT, arguments: task),
+                            Get.toNamed(AppRoutes.addEdit, arguments: task),
                       );
                     },
                   )
                 : const Center(
                     child: Text(
                       'No tasks yet',
-                      style: AppStyles.styNoData,
+                      style: styNoData,
                     ),
                   ),
             floatingActionButton: GetBuilder<TasksController>(
               builder: (homeController) => FloatingActionButton(
                 child: const Icon(Icons.add),
                 onPressed: () async {
-                  Get.toNamed(AppRoutes.ADD_EDIT);
+                  Get.toNamed(AppRoutes.addEdit);
                 },
-                backgroundColor: AppColors.clrAccent,
+                backgroundColor: clrAccent,
                 elevation: 0,
                 highlightElevation: 0,
               ),
